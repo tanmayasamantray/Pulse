@@ -1,1 +1,13 @@
 import express from "express";
+import { config } from "dotenv";
+
+const app = express();
+config();
+const PORT = process.env.PORT || 5000
+
+app.get("/", (req, res) => {
+    // root route http://localhost:5000/
+    res.send("Hello World");
+});
+
+app.listen(PORT, () => console.log(`Sever active on PORT ${PORT}.`));
