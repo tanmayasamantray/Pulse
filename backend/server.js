@@ -1,7 +1,8 @@
 import express from "express";
 import { config } from "dotenv";
-import authRoutes from "./routes/auth.routes.js";
 import connectToMogoDB from "./db/connectToMongoDB.js";
+import authRoutes from "./routes/auth.routes.js";
+import messageRoutes from "./routes/message.routes.js";
 
 const app = express();
 config();
