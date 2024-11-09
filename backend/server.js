@@ -12,10 +12,7 @@ const app = express();
 config();
 const PORT = process.env.PORT || 5000
 
-// app.get("/", (req, res) => {
-//     // root route http://localhost:8000/
-//     res.send("Hello World");
-// });
+
 app.use(express.json()); // To parse incoming request with json payloads
 app.use(cookieParser());
 
