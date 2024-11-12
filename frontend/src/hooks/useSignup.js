@@ -3,8 +3,8 @@ import toast from "react-hot-toast";
 
 const useSignup = () => {
     const[loading, setLoading] = useState(false);
-    const signup = async ({fullName, username, password, confirmPassword, gender}) =>{
-        const success = handleInputErrors({fullName, username, password, confirmPassword, gender})
+    const signup = async ({fullName, userName, password, confirmPassword, gender}) =>{
+        const success = handleInputErrors({fullName, userName, password, confirmPassword, gender})
         if(!success) return;
 
         setLoading(true)
@@ -12,8 +12,11 @@ const useSignup = () => {
             const res = await fetch("/api/auth/signup",{
                 method: "POST",
                 headers:{"Content-Type": "application/json"},
-                body: JSON.stringify({fullName, username, password, confirmPassword, gender}),
+                body: JSON.stringify({fullName, userName, password, confirmPassword, gender}),
             });
+            if (!res.ok) {
+                throw new Error(data.message || "Failed to sign up");
+            }            
 
             const data = await res.json()
             console.log(data);
@@ -30,8 +33,8 @@ const useSignup = () => {
 
 export default useSignup
 
-function handleInputErrors({fullName, username, password, confirmPassword, gender}){
-    if(!fullName || !username || !password || !confirmPassword || !gender){
+function handleInputErrors({fullName, userName, password, confirmPassword, gender}){
+    if(!fullName || !userName || !password || !confirmPassword || !gender){
         toast.error('Please fill in all the fields')
         return false
     }
@@ -42,4 +45,5 @@ function handleInputErrors({fullName, username, password, confirmPassword, gende
     if(password.length < 8){
         toast.error('Password must be at least 8 characters')
     }
+    return true
 }
