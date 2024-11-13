@@ -23,5 +23,5 @@ app.use("/api/users", userRoutes);
 
 app.listen(PORT, () => {
     connectToMogoDB();
-    console.log(`Sever active on PORT ${PORT}.`);
+    console.log(`Server active on PORT ${PORT}.`);
 });
