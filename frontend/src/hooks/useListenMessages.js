@@ -2,23 +2,22 @@ import { useEffect } from "react";
 import { useSocketContext } from "../context/SocketContext";
 import useConversation from "../zustand/useConversation";
 import notificationSound from "../assets/sounds/notification.mp3";
+import { useAuthContext } from "../context/AuthContext";
 
 const useListenMessages = () => {
     const { socket } = useSocketContext();
-    const { setMessages } = useConversation();
+    const { messages, setMessages } = useConversation();
+    const { authUser } = useAuthContext();
 
     useEffect(() => {
-        const handleNewMessage = (newMessage) => {
+        socket?.on("newMessage", (newMessage) => {
             newMessage.shouldShake = true;
             const sound = new Audio(notificationSound);
             sound.play();
-            setMessages(prev => [...prev, newMessage]);
-        };
+            setMessages([...messages, newMessage]);
+        });
 
-        socket?.on("newMessage", handleNewMessage);
-
-        return () => socket?.off("newMessage", handleNewMessage);
-    }, [socket, setMessages]);
+        return () => socket?.off("newMessage");
+    }, [socket, setMessages, messages, authUser._id]);
 };
-
 export default useListenMessages;
