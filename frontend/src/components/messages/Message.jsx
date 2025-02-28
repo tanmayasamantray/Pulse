@@ -1,6 +1,5 @@
 import { useAuthContext } from "../../context/AuthContext";
 import { extractTime } from "../../utils/extractTime";
-import { decryptMessage } from "../../utils/encryption";
 import useConversation from "../../zustand/useConversation";
 
 const Message = ({ message }) => {
@@ -13,13 +12,6 @@ const Message = ({ message }) => {
     const bubbleBgColor = fromMe ? "bg-blue-500" : "bg-gray-800";
     const shakeClass = message.shouldShake ? "shake" : "";
 
-    // Decrypt message based on sender/receiver
-    const decryptedContent = decryptMessage(
-        message.message,
-        fromMe ? authUser._id : message.senderId,
-        fromMe ? message.receiverId : authUser._id
-    );
-
     return (
         <div className={`chat ${chatClassName}`}>
             <div className='chat-image avatar'>
@@ -28,7 +20,7 @@ const Message = ({ message }) => {
                 </div>
             </div>
             <div className={`chat-bubble text-white ${bubbleBgColor} ${shakeClass} pb-2`}>
-                {decryptedContent}
+                {message.message}
             </div>
             <div className='chat-footer opacity-50 text-xs flex gap-1 items-center'>
                 {formattedTime}
@@ -37,4 +29,4 @@ const Message = ({ message }) => {
     );
 };
 
-export default Message;
+export default Message; 

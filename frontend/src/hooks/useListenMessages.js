@@ -2,19 +2,31 @@ import { useEffect } from "react";
 import { useSocketContext } from "../context/SocketContext";
 import useConversation from "../zustand/useConversation";
 import notificationSound from "../assets/sounds/notification.mp3";
-import { AuthContext } from "../context/AuthContext";
+import { decryptMessage } from "../utils/encryption";
+import { useAuthContext } from "../context/AuthContext";
 
 const useListenMessages = () => {
     const { socket } = useSocketContext();
     const { setMessages } = useConversation();
-    const {authUser} = AuthContext()
+    const { authUser } = useAuthContext();
 
     useEffect(() => {
         const handleNewMessage = (newMessage) => {
             newMessage.shouldShake = true;
             const sound = new Audio(notificationSound);
             sound.play();
-            setMessages(prev => [...prev, newMessage]);
+
+            // Decrypt the message before adding it to the messages array
+            const decryptedMessage = {
+                ...newMessage,
+                message: decryptMessage(
+                    newMessage.message,
+                    newMessage.senderId,
+                    authUser._id
+                )
+            };
+            
+            setMessages(prev => [...prev, decryptedMessage]);
         };
 
         socket?.on("newMessage", handleNewMessage);
