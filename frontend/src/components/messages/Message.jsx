@@ -1,7 +1,3 @@
-import { useAuthContext } from "../../context/AuthContext";
-import { extractTime } from "../../utils/extractTime";
-import useConversation from "../../zustand/useConversation";
-
 const Message = ({ message }) => {
     const { authUser } = useAuthContext();
     const { selectedConversation } = useConversation();
@@ -28,5 +24,3 @@ const Message = ({ message }) => {
         </div>
     );
 };
-
-export default Message; 
