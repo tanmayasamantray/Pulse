@@ -3,46 +3,43 @@ import toast from "react-hot-toast";
 import { useAuthContext } from "../context/AuthContext";
 
 const useLogin = () => {
-    const[loading, setLoading] = useState(false);
-    const{setAuthUser} = useAuthContext();
-    const login = async ({userName, password}) =>{
-      const success = handleInputErrors({userName, password})
-      if(!success) return;
-    
-      setLoading(true)
-      try {
-          const res = await fetch("/api/auth/login",{
-              method: "POST",
-              headers: {"Content-Type": "application/json"},
-              body: JSON.stringify({userName, password}),
-          });
-          if(!res.ok){
-              throw new Error(data.message || "Failed to login");
-          }
-        
-          const data = await res.json()
-          if(data.error){
-            throw new Error(data.error)
-          }
-          toast.success('You have logged in successfully.')
-          localStorage.setItem("chat-user", JSON.stringify(data))
-          setAuthUser(data);
-      } catch (error) {
-          toast.error(error.message)
-      }finally{
-          setLoading(false)
-      }
-    };
-    return {loading, login};
+	const [loading, setLoading] = useState(false);
+	const { setAuthUser } = useAuthContext();
+
+	const login = async (username, password) => {
+		const success = handleInputErrors(username, password);
+		if (!success) return;
+		setLoading(true);
+		try {
+			const res = await fetch("/api/auth/login", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ username, password }),
+			});
+
+			const data = await res.json();
+			if (data.error) {
+				throw new Error(data.error);
+			}
+
+			localStorage.setItem("chat-user", JSON.stringify(data));
+			setAuthUser(data);
+		} catch (error) {
+			toast.error(error.message);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	return { loading, login };
 };
+export default useLogin;
 
-export default useLogin
+function handleInputErrors(username, password) {
+	if (!username || !password) {
+		toast.error("Please fill in all fields");
+		return false;
+	}
 
-function handleInputErrors({userName, password}){
-    if(!userName || !password){
-        toast.error('Please fill in all the fields')
-        console.log(userName, password)
-        return false;
-    }
-    return true
+	return true;
 }

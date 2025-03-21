@@ -2,26 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/bg01.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+body {
+	background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/bg.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
 }
 
-/* Dark-mode scrollbar  */
-::-webkit-scrollbar{
-    width: 8px;
+/* dark mode looking scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
 }
-::-webkit-scrollbar-track{
-    background: #555;
+
+::-webkit-scrollbar-track {
+	background: #555;
 }
-::-webkit-scrollbar-thumb{
-    background: #121212;
-    border-radius: 5px;
+
+::-webkit-scrollbar-thumb {
+	background: #121212;
+	border-radius: 5px;
 }
-::-webkit-scrollbar-thumb:hover{
-    background: #242424;
+
+::-webkit-scrollbar-thumb:hover {
+	background: #242424;
 }
 
 /* SHAKE ANIMATION ON HORIZONTAL DIRECTION */
