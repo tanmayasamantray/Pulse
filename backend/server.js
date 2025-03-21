@@ -13,7 +13,6 @@ import { app, server } from "./socket/socket.js";
 const __dirname = path.resolve();
 dotenv.config({ path: path.join(__dirname, 'backend', '.env') });
 
-// PORT should be assigned after calling dotenv.config() because we need to access the env variables. Didn't realize while recording the video. Sorry for the confusion.
 const PORT = process.env.PORT
 
 app.use(express.json()); // to parse the incoming requests with JSON payloads (from req.body)
