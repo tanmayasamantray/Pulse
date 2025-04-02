@@ -20,7 +20,7 @@ const Messages = () => {
 			{!loading &&
 				messages.length > 0 &&
 				messages.map((message) => (
-					<div key={message._id} ref={lastMessageRef}>
+					<div key={message._id} ref={message === messages[messages.length - 1] ? lastMessageRef : null}>
 						<Message message={message} />
 					</div>
 				))}

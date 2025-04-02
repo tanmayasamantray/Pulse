@@ -5,12 +5,18 @@ const generateTokenAndSetCookie = (userId, res) => {
 		expiresIn: "15d",
 	});
 
+	// Check environment
+	const isDevelopment = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
+
 	res.cookie("jwt", token, {
-		maxAge: 15 * 24 * 60 * 60 * 1000, // MS
-		httpOnly: true, // prevent XSS attacks cross-site scripting attacks
-		sameSite: "strict", // CSRF attacks cross-site request forgery attacks
-		secure: process.env.NODE_ENV !== "development",
+		maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days in milliseconds
+		httpOnly: true, // Prevent XSS attacks (cross-site scripting)
+		sameSite: isDevelopment ? 'lax' : 'strict', // Relaxed in development to allow easier testing
+		secure: !isDevelopment, // Only use HTTPS in production
+		path: '/', // Make cookie available for all paths
 	});
+
+	console.log('Cookie set with token');
 };
 
 export default generateTokenAndSetCookie;

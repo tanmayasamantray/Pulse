@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "chat-app-yt": "file:..",
-    "crypto-js": "^4.2.0",
+    "Pulse": "file:..",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
