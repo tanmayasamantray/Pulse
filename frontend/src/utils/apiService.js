@@ -36,7 +36,6 @@ export const userApi = {
     // Get users for conversation list
     getUsers: async () => {
         try {
-            console.log('Fetching users');
             const response = await fetch(`${API_BASE_URL}/users`, defaultOptions);
             return handleResponse(response);
         } catch (error) {
@@ -48,7 +47,6 @@ export const userApi = {
     // Get blocked users
     getBlockedUsers: async () => {
         try {
-            console.log('Fetching blocked users');
             const response = await fetch(`${API_BASE_URL}/users/blocked`, defaultOptions);
             return handleResponse(response);
         } catch (error) {
@@ -60,12 +58,10 @@ export const userApi = {
     // Block a user
     blockUser: async (userId) => {
         try {
-            console.log(`Blocking user: ${userId}`);
             const response = await fetch(`${API_BASE_URL}/users/block/${userId}`, {
                 ...defaultOptions,
                 method: 'POST'
             });
-            console.log('Block response status:', response.status);
             return handleResponse(response);
         } catch (error) {
             console.error('Error blocking user:', error);
@@ -76,12 +72,10 @@ export const userApi = {
     // Unblock a user
     unblockUser: async (userId) => {
         try {
-            console.log(`Unblocking user: ${userId}`);
             const response = await fetch(`${API_BASE_URL}/users/unblock/${userId}`, {
                 ...defaultOptions,
                 method: 'POST'
             });
-            console.log('Unblock response status:', response.status);
             return handleResponse(response);
         } catch (error) {
             console.error('Error unblocking user:', error);

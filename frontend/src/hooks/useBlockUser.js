@@ -16,10 +16,8 @@ const useBlockUser = () => {
         setError(null);
         
         try {
-            console.log(`Attempting to block user: ${userId}`);
             await userApi.blockUser(userId);
             
-            console.log(`User ${userId} blocked successfully`);
             toast.success("User blocked successfully");
             
             // Dispatch an event to notify other components
@@ -27,7 +25,6 @@ const useBlockUser = () => {
             
             return true;
         } catch (error) {
-            console.error("Block user error:", error);
             setError(error.message);
             
             // Display a user-friendly error message
@@ -55,10 +52,8 @@ const useBlockUser = () => {
         setError(null);
         
         try {
-            console.log(`Attempting to unblock user: ${userId}`);
             await userApi.unblockUser(userId);
             
-            console.log(`User ${userId} unblocked successfully`);
             toast.success("User unblocked successfully");
             
             // Dispatch an event to notify other components
@@ -66,7 +61,6 @@ const useBlockUser = () => {
             
             return true;
         } catch (error) {
-            console.error("Unblock user error:", error);
             setError(error.message);
             
             // Display a user-friendly error message

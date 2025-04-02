@@ -32,8 +32,6 @@ app.use(cookieParser()); // Parse cookies
 
 // Debug middleware for authentication
 app.use((req, res, next) => {
-	console.log('Request path:', req.path);
-	console.log('Cookies:', req.cookies);
 	next();
 });
 

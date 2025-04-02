@@ -16,7 +16,6 @@ const generateTokenAndSetCookie = (userId, res) => {
 		path: '/', // Make cookie available for all paths
 	});
 
-	console.log('Cookie set with token');
 };
 
 export default generateTokenAndSetCookie;
